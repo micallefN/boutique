@@ -2,33 +2,24 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <h1>Spiruline</h1>
-    <div>
-      <button @click="onSupplierListClick()">Consulter la liste des fournisseurs</button>
-      <button @click="onMapClick()">Voir la carte</button>
+    <div id="menu">
+      <router-link :to="{ name: 'SuppliersList' }">Consulter la liste des fournisseurs</router-link>
+      <router-link :to="{ name: 'SuppliersMap' }">Voir la carte</router-link>
     </div>
-   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <SuppliersList></SuppliersList>
-    <SuppliersMap></SuppliersMap>
+    <router-view></router-view>
+<!--    <SuppliersList></SuppliersList>-->
   </div>
 </template>
 
 <script>
-import SuppliersList from './components/SuppliersList.vue'
-import SuppliersMap from './components/SuppliersMap.vue'
+// import SuppliersList from './components/SuppliersList.vue'
 
 export default {
   name: 'app',
   components: {
-    SuppliersList,
-    SuppliersMap
+    // SuppliersList,
   },
   methods:{
-    onSupplierListClick : function(){
-        alert('click fournisseur');
-    },
-    onMapClick : function(){
-        alert('click map');
-    }
   }
 }
 </script>
@@ -42,15 +33,16 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-#app button{
+#menu a{
   margin: 10px;
   padding: 10px;
   cursor: pointer;
   background-color: #41B883;
   color: white;
   border: none;
+  text-decoration: none;
 }
-#app button:hover{
+#menu a:hover{
   background-color: #328e65;
 }
 </style>
