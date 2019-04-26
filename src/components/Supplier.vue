@@ -12,7 +12,7 @@ export default {
   props: {
     name: String,
     status: Boolean,
-    checkedAt: String
+    checkedAt: Date
   }
 }
 </script>
@@ -20,7 +20,8 @@ export default {
 <style scoped>
   .supplier{
     padding: 20px 0px;
-    border: 2px solid grey;;
+    border: 2px solid grey;
+    margin-bottom: 15px;
   }
   .red{
     color: red;
