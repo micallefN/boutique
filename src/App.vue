@@ -7,17 +7,17 @@
       <router-link :to="{ name: 'SuppliersMap' }">Voir la carte</router-link>
     </div>
     <router-view></router-view>
-<!--    <SuppliersList></SuppliersList>-->
+<!--<Supplier></Supplier>-->
   </div>
 </template>
 
 <script>
-// import SuppliersList from './components/SuppliersList.vue'
+// import Supplier from './components/Supplier.vue'
 
 export default {
   name: 'app',
   components: {
-    // SuppliersList,
+    // Supplier,
   },
   methods:{
   }
@@ -44,5 +44,8 @@ export default {
 }
 #menu a:hover{
   background-color: #328e65;
+}
+#menu {
+  margin-bottom: 40px;
 }
 </style>
