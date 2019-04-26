@@ -9,15 +9,14 @@
 <script>
 export default {
   name: 'Supplier',
-  data: () => ({
-    name: 'Mon fournisseur',
-    status: false, // est ce qu'il y a du stock
-    checkedAt: new Date() // date de la dernière mise à jour du stock
-  })
+  props: {
+    name: String,
+    status: Boolean,
+    checkedAt: String
+  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .supplier{
     padding: 20px 0px;
