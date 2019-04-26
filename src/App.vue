@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+<!--    <img alt="Vue logo" src="./assets/logo.png">-->
     <h1>Spiruline</h1>
     <div id="menu">
       <router-link :to="{ name: 'SuppliersList' }">Consulter la liste des fournisseurs</router-link>
