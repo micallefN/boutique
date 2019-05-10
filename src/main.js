@@ -6,7 +6,6 @@ import {router} from './router/index.js'
 import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {
   load: {
-
     key: process.env.VUE_APP_APIKEY,
   }
 });
