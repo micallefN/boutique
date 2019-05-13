@@ -1,26 +1,45 @@
 <template>
   <div id="app">
-<!--    <img alt="Vue logo" src="./assets/logo.png">-->
+
     <h1>Spiruline</h1>
-    <div id="menu">
-      <router-link :to="{ name: 'SuppliersList' }">Consulter la liste des fournisseurs</router-link>
-      <router-link :to="{ name: 'SuppliersMap' }">Voir la carte</router-link>
+    <h3 v-if="loading"><span v-if="error">{{ error }}</span><span v-else>Chargement des données en cours</span></h3>
+    <div v-else>
+        <div id="menu">
+            <router-link :to="{ name: 'SuppliersList' }" >Consulter la liste des fournisseurs</router-link>
+            <router-link :to="{ name: 'SuppliersMap' }">Voir la carte</router-link>
+        </div>
+        <router-view :suppliers="suppliers"></router-view>
     </div>
-    <router-view></router-view>
-<!--<Supplier></Supplier>-->
+
   </div>
 </template>
 
 <script>
-// import Supplier from './components/Supplier.vue'
+const axios = require('axios');
 
 export default {
   name: 'app',
-  components: {
-    // Supplier,
+  data: function(){
+      return {
+          suppliers: [],
+          error: null,
+          loading: false
+      }
   },
-  methods:{
-  }
+    created(){
+        this.loading = true;
+
+        axios.get('https://api-suppliers.herokuapp.com/api/suppliers')
+            .then((response) => {
+                this.loading = false;
+                return this.suppliers = response.data ;
+            })
+            .catch((error) => {
+                return this.error = error ;
+            })
+            .finally(() => {
+            });
+    },
 }
 </script>
 
