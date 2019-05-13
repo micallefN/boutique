@@ -23,19 +23,18 @@ export default {
       return {
           suppliers: [],
           error: null,
-          loading: false
+          loading: true
       }
   },
     created(){
-        this.loading = true;
 
         axios.get('https://api-suppliers.herokuapp.com/api/suppliers')
             .then((response) => {
                 this.loading = false;
-                return this.suppliers = response.data ;
+                this.suppliers = response.data ;
             })
             .catch((error) => {
-                return this.error = error ;
+                this.error = error ;
             })
             .finally(() => {
             });

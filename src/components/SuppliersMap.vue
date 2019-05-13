@@ -15,6 +15,7 @@
 <script>
   import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 
+
   export default {
     name: 'SuppliersMap',
     components: {
@@ -25,14 +26,21 @@
     data() {
       return {
         url: "https://{s}.tile.osm.org/{z}/{x}/{y}.png",
-        zoom: 2,
-        center: [10, 10],
+        zoom: 10,
+        center: [10,10],
         bounds: null,
       };
     },
     props:{
       suppliers: Array
     },
+    created: function() {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.center = [position.coords.latitude, position.coords.longitude];
+        })
+      }
+    }
   }
 </script>
 

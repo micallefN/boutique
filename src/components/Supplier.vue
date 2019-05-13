@@ -17,7 +17,6 @@ export default {
     checkedAt: String
   },
   methods:{
-    //format: format,
     format,
   }
 }
