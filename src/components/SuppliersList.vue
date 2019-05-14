@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Liste des fournisseurs</h1>
-    <Supplier v-for="supplier in suppliers" :name="supplier.name" :status="supplier.status" :checked-at="supplier.checkedAt" :key="supplier.id"></Supplier>
+    <Supplier v-for="supplier in suppliers" :name="supplier.name" :status="supplier.status" :checked-at="supplier.checkedAt" :key="supplier.id" :id="supplier.id"></Supplier>
   </div>
 
 </template>
