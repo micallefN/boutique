@@ -7,15 +7,16 @@
         <div id="menu">
             <router-link :to="{ name: 'SuppliersList' }">Consulter la liste des fournisseurs</router-link>
             <router-link :to="{ name: 'SuppliersMap' }">Voir la carte</router-link>
+            <router-link :to="{ name: 'SupplierForm' }">Add Supplier</router-link>
         </div>
         <h3 v-if="loading"><span v-if="error">{{ error }}</span><span v-else>Chargement des données en cours</span></h3>
         <div v-else>
             <select v-model="selected">
                 <option value="all">*</option>
-                <option value="1">OK</option>
-                <option value="">KO</option>
+                <option :value="true">OK</option>
+                <option :value="false">KO</option>
             </select>
-            <router-view :suppliers="suppliers"></router-view>
+            <router-view :suppliers="suppliersFiltered"></router-view>
         </div>
 
     </div>
@@ -23,6 +24,7 @@
 
 <script>
     const axios = require('axios');
+    import Bus from './Bus.js'
 
     export default {
         name: 'app',
@@ -31,42 +33,43 @@
                 suppliers: [],
                 error: null,
                 loading: true,
-                suppliersSave: []
+                selected: 'all',
             }
         },
+        methods:{
+          getDatas(){
+              axios.get('https://api-suppliers.herokuapp.com/api/suppliers')
+                  .then((response) => {
+                      this.loading = false;
+                      this.suppliers = response.data;
+                  })
+                  .catch((error) => {
+                      this.error = error;
+                  })
+                  .finally(() => {
+                  });
+          }
+        },
         created() {
-
-            axios.get('https://api-suppliers.herokuapp.com/api/suppliers')
-                .then((response) => {
-                    this.loading = false;
-                    this.suppliers = response.data;
-                    this.suppliersSave = this.suppliers;
-                })
-                .catch((error) => {
-                    this.error = error;
-                })
-                .finally(() => {
-                });
+            this.getDatas();
+            Bus.$on('reloadApi', () => {
+                this.getDatas();
+            })
         },
         computed:{
-            selected: {
-                get () {
-                    return null;
-                },
-                set (optionValue) {
-                    if(optionValue === 'all'){
-                        this.suppliers = this.suppliersSave;
-                    } else {
-                        let datas = [];
-                        this.suppliersSave.forEach(function(element){
-                            if(element.status === Boolean(optionValue)){
-                                datas.push(element)
-                            }
-                        })
-                        this.suppliers = datas;
-                    }
-                },
-            },
+            suppliersFiltered: function() {
+                if(this.selected === 'all'){
+                   return this.suppliers;
+                } else {
+                    let datas = [];
+                    this.suppliers.forEach((element) =>{
+                        if(element.status === this.selected){
+                            datas.push(element);
+                        }
+                    });
+                    return datas;
+                }
+            }
         },
 
     }
