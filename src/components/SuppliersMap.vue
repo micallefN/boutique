@@ -15,7 +15,6 @@
 <script>
   import { LMap, LTileLayer, LMarker } from "vue2-leaflet";
 
-
   export default {
     name: 'SuppliersMap',
     components: {
